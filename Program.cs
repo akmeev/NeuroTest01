@@ -274,6 +274,7 @@ namespace NeuroTest01
 
 		static void CheckNeuronForDigit(Neuron N, int CheckedValue)
 		{
+            Console.WriteLine("Проверяем по цифрам:");
 			for (int i = 0; i < 10; i++)
 			{
 				bool r = N.Do(GoodData[i]);
@@ -281,8 +282,9 @@ namespace NeuroTest01
 				if ((r && i!=CheckedValue) || (!r && i==CheckedValue)) N.AddError();
 			}
 
-			// Далее - хардкод: мы проверяем именно цифру 5 и ничего другого.
-			for (int i = 0; i < 6; i++)
+            // Далее - хардкод: мы проверяем именно цифру 5 и ничего другого.
+            Console.WriteLine("Проверяем кривые пятерки:");
+            for (int i = 0; i < 6; i++)
 			{
 				bool r = N.Do(WrongData[i]);
 				Console.WriteLine("i=" + i + " -> r=" + r.ToString());
@@ -295,14 +297,15 @@ namespace NeuroTest01
 			// Тестовая функция на обучение нейрона цифре 5 (в матрице 3x5).
 			for (int i = 0; i < 10; i++)
 			{
+                Console.WriteLine("Обучаем нейрон цифре " + i);
 				Neuron N = new Neuron(); // Новая цифра - новый нейрон. Старые значения нам не нужны.
 				N.Print(); // Печатаем состояние нейрона до обучения.
-				TrainNeuronForDigit(N, 100000, i);
+				TrainNeuronForDigit(N, 300000, i);
 				CheckNeuronForDigit(N, i); // Проверяем - хорошо ли обучена зверушка.
 				N.Print(); // Печатаем состояние нейрона после обучения.
-			}
-
-			Console.ReadLine();
+                Console.WriteLine("Press Enter for продолжить, однако.");
+                Console.ReadLine();
+            }
 		}
 
 		static void NewEmptyNet()
@@ -318,8 +321,8 @@ namespace NeuroTest01
 
 		static void Main(string[] args)
 		{
-			// LearnForFive(); // Это тест на класс Neuron. основное потом - на Neuron2 (+Layer +Net).
-			NewEmptyNet();
+			LearnForFive(); // Это тест на класс Neuron. основное потом - на Neuron2 (+Layer +Net).
+			//NewEmptyNet();
 			Console.ReadLine();
 		}
 	}
